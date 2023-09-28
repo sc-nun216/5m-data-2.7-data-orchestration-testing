@@ -8,15 +8,15 @@ We will be using the `elt` and `dwh` environments for this lesson. We will also 
 
 ### Lesson Overview
 
-In this lesson, we will continue with orchestration from where we left off in the previous unit. We will use `dagster` to orchestrate and schedule the `meltano` and `dbt` pipelines.
+In this lesson, we will continue with orchestration from where we left off in the previous unit. We will use `Dagster` to orchestrate and schedule the `Meltano` and `Dbt` pipelines.
 
-We will also dive into the concept of data testing, which is an important part of data quality management. We will learn about how to use `Great Expectations`, an open-source library for data testing, and implement them in `dagster`, `meltano` and `dbt`.
+We will also dive into the concept of data testing, which is an important part of data quality management. We will use `Great Expectations`, an open-source library for data testing.
 
 ---
 
 ## Part 1 - Hands-on with Orchestration II
 
-In the previous unit, combining `meltano` and `dbt`, we have an end-to-end ELT (data ingestion and transformation) pipeline. However, we ran the pipelines manually. Now, we will use `dagster` to orchestrate the pipelines and schedule them to run periodically.
+In the previous unit, combining Meltano and Dbt, we have an end-to-end ELT (data ingestion and transformation) pipeline. However, we ran the pipelines manually. Now, we will use Dagster to orchestrate the pipelines and schedule them to run periodically.
 
 ### Background
 
@@ -73,7 +73,7 @@ defs = Definitions(
 
 Refresh the Dagster project, look for the 'Launchpad' tab after clicking on the job name in the left nav.
 
-When initiating a run in Dagster, we can pass along configuration variables at run time such as the location of the Meltano project:
+When initiating a run in Dagster, we have to pass along configuration variables at run time such as the location of the Meltano project:
 
 ```yml
 resources:
@@ -131,9 +131,9 @@ cd resale_flat_dagster
 DAGSTER_DBT_PARSE_PROJECT_ON_LOAD=1 dagster dev
 ```
 
-We can now trigger the dbt pipeline from within Dagster by selecting the assets and clicking 'Materialize selected'.
+We can now trigger the Dbt pipeline from within Dagster by selecting the assets and clicking 'Materialize selected'.
 
-We can even schedule the dbt pipeline to run daily by uncommenting the code in `resale_flat_dagster/resale_flat_dagster/schedules.py`. Now click 'Reload definitions' and you will see the new schedule.
+We can even schedule the pipeline to run daily by uncommenting the code in `resale_flat_dagster/resale_flat_dagster/schedules.py`. Now click 'Reload definitions' and you will see the new schedule.
 
 ## Part 2 - Hands-on with Data Testing (Great Expectations)
 
@@ -183,7 +183,7 @@ Expectations are the workhorse abstraction in Great Expectations. Each Expectati
 great_expectations suite new
 ```
 
-Select 3 as we will be using a Data Assistant to populate the Expectation Suite. Then you will be presented with 2 options of data asset:
+Select `3` as we will be using a Data Assistant to populate the Expectation Suite. Then you will be presented with 2 options of data asset:
 
 - resale_flat_201701_202306.csv
 - resale_flat_202307.csv
@@ -214,7 +214,7 @@ This will again launch a jupyter notebook to help you configure the Checkpoint.
 
 - The second code cell is pre-populated with an arbitrarily chosen Batch Request and Expectation Suite to get you started. Edit the data_asset_name to reference the data we want to validate: `resale_flat_202307.csv`.
 
-You can then execute all cells in the notebook in order to store the Checkpoint to your Data Context.
+Then execute all cells in the notebook in order to store the Checkpoint to your Data Context.
 
 ### Inspect the Validation Results
 
@@ -240,13 +240,13 @@ Select `2` for the type of Datasource and `2` for Postgres. Again, a jupyter not
 
 Set the following connection parameters:
 
-- host = "db.kjytsuhjlrmjodturbcb.supabase.co"
-- port = "5432"
-- username = "su_user"
-- password = "MP8EtwVgM7w"
-- database = "postgres"
-- schema_name = "public"
-- table_name = "resale_flat_prices_2020"
+- host = `"db.kjytsuhjlrmjodturbcb.supabase.co"`
+- port = `"5432"`
+- username = `"su_user"`
+- password = `"MP8EtwVgM7w"`
+- database = `"postgres"`
+- schema_name = `"public"`
+- table_name = `"resale_flat_prices_2020"`
 
 Then execute all cells in the notebook. Based on that information, the CLI added some entries into your `great_expectations.yml` file, under the datasources header.
 
@@ -272,7 +272,7 @@ This will again launch a jupyter notebook to help you configure the Checkpoint.
 
 - The second code cell is pre-populated with an arbitrarily chosen Batch Request and Expectation Suite to get you started. Edit the data_asset_name to reference the data we want to validate: `public.resale_flat_prices_2021`. Also, change the `expectation_suite_name` to `resale_flat_postgres.validation`.
 
-You can then execute all cells in the notebook in order to store the Checkpoint to your Data Context.
+Execute all cells in the notebook in order to store the Checkpoint to your Data Context.
 
 Again, uncomment and run the last cell in the notebook. This will open Data Docs, where you can click on the latest Validation run to see the Validation Results page for this Checkpoint run.
 
@@ -284,11 +284,11 @@ great_expectations suite edit resale_flat_postgres.validation
 
 ## Part 3 - Testing Dbt
 
-Back in unit 2.5, we configured some simple tests in dbt to check for _null values_, _uniqueness_ and _foreign key constraints_. We have ported the dbt project `liquor_sales` from unit 2.5 to this unit. You can find the tests in the `schema.yml` files under `/models`.
+Back in unit 2.5, we configured some simple tests in dbt to check for _null values_, _uniqueness_ and _foreign key constraints_. We have copied the dbt project `liquor_sales` from unit 2.5 to this unit. You can find the tests in the `schema.yml` files in the `/models` directory.
 
 However, the built-in tests are limited in scope and functionality. We can expand on the tests using `dbt_utils`- a utility macros package for dbt and `dbt-expectations`- an extension package for dbt inspired by Great Expectations to write more comprehensive tests.
 
-### Installing and Configuring dbt_utils
+### Installing and Configuring `dbt_utils`
 
 First, activate the conda environment.
 
@@ -334,7 +334,7 @@ Run the tests using `dbt test`. Observe which tests pass and which fail.
 > 2. Run a SQL query to get the min and max values of `pack` and `bottle_volume_ml` in `liquor_sales_star.dim_item`.
 > 3. Then, set the `min_value` and `max_value` in the `dbt_utils.accepted_range` test in `models/star/schema.yml` to the min and max values respectively.
 
-### Installing and Configuring dbt-expectations
+### Installing and Configuring `dbt-expectations`
 
 Add the following to `packages.yml`:
 
@@ -358,4 +358,5 @@ Let's add some tests to check the column types in `fact_sales`:
       column_type: date
 ```
 
-> Add type tests for all the columns in `fact_sales`, `dim_item` and `dim_store`.
+> 1. Add type tests for all the columns in `fact_sales`, `dim_item` and `dim_store`.
+> 2. Can you think of any other tests that we can add to the models?

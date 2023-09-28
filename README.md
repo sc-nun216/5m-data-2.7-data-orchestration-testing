@@ -20,7 +20,7 @@ Learners will be able to:
 
 - Orchestrate and schedule Meltano and Dbt using Dagster.
 - Set up and run data quality tests using Great Expectations.
-- Set up and run data quality tests using dbt packages.
+- Set up and run data quality tests using Dbt packages.
 
 ## Lesson Plan
 
