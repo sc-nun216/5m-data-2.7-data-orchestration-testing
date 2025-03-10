@@ -1,0 +1,18 @@
+# The schema corresponds to each queries/py (depending on the connector) where you define the table name
+# in the data warehouse along with the description and tests
+
+version: 2
+
+models:
+  - name: customers
+    description: this is a demo transformation for our class
+    columns:
+      - name: customer_id
+        description: This is a unique identifier for a customer
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+        description: Customer's first name. PII.
+      - name: last_name
+        description: Customer's last name. PII.

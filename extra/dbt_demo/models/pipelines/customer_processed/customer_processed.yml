@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: customer_processed
+    description: demo of processed customer data from raw customer data
+    columns:
+      - name: new_customer_id
+        description: This is a unique identifier for a customer that we processed
+        tests:
+          - unique
+          - not_null
+      - name: new_last_name
+        description: Customer's last name that we processed
+        tests:
+          - unique
+          - not_null
+
