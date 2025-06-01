@@ -129,8 +129,10 @@ Let's add some tests to check the column types in `fact_sales`:
 
 This will be covered in class, with demo on `extra/dagster_orchestration_dbt`
 
->cd extra/dagster_orchestration_dbt
->dagster dev
+```bash
+cd extra/dagster_orchestration_dbt
+dagster dev
+```
 
 Note that to run the above successfully, you need to:
 1. Input your Github personal access token in `extra/dagster_orchestration_dbt/dagster_orchestration/assets/duck.py`
