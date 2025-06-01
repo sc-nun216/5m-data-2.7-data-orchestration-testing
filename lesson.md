@@ -78,7 +78,9 @@ Let's add some additional tests to the `fact_sales` model at the end of `models/
 
 Here, we are using `dbt_utils.accepted_range` to check if the `date` field is within the range of `2012-01-01` and `CURRENT_DATE()`.
 
-We can also add the `dbt_utils.expression_is_true` test to check if the `sale_dollars` field is the product of `bottles_sold` and `state_bottle_retail`:
+We can also add the `dbt_utils.expression_is_true` test to check if the `sale_dollars` field is the product of `bottles_sold` and `state_bottle_retail` as below.
+
+Note that the expression below involves multiple columns, and hence the test must be outside the `columns:` section so as to apply it as a model-level test (put it below `description:`)
 
 ```yml
 tests:
