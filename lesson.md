@@ -113,11 +113,11 @@ Let's add some tests to check the column types in `fact_sales`:
 - name: invoice_and_item_number
   tests:
     - dbt_expectations.expect_column_values_to_be_of_type:
-      column_type: string
+        column_type: string
 - name: date
   tests:
     - dbt_expectations.expect_column_values_to_be_of_type:
-      column_type: date
+        column_type: date
 ```
 
 > 1. Add type tests for all the columns in `fact_sales`, `dim_item` and `dim_store`.
