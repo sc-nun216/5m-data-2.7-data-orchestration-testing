@@ -172,7 +172,7 @@ dagster dev
 
 ### Using the Dagster-Meltano library
 
-Replace the content of `meltano-orchestration/meltano_orchestration/__init__.py` with the following:
+Replace the content of `meltano-orchestration/meltano_orchestration/definitions.py` with the following:
 
 ```python
 from dagster import Definitions, ScheduleDefinition, job
