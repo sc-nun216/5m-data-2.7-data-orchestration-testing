@@ -151,22 +151,30 @@ We can orchestrate Meltano and Dbt pipelines using Dagster. By executing the com
 
 ### Create a Dagster Project
 
-First, activate the conda environment.
+As we are using BigQuery, the learner is reminded to do authentication using `gcloud auth application-default login` prior to starting this exercise.
+
+Due to issues of version conflict between dagster-meltano 1.5.5 with dagster >= 1.10, the learner is advised to create a new environment from scratch for this exercise.
+
+First, create a new conda environment and install the necessary packages.
 
 ```bash
-conda activate elt
+conda create -n mo-env python=3.10 pip=25.1
+conda activate mo-env
+pip install dagster-meltano==1.5.5 # This installs dagster==1.9.13 automatically
+pip install dagster-webserver==1.9.13 # Version has to match dagster version installed in previous step
+pip install meltano==3.7.8
 ```
 
 We will create a Dagster project and use it to orchestrate the Meltano pipelines.
 
 ```bash
 dagster project scaffold --name meltano-orchestration
+cd meltano-orchestration
 ```
 
-Add the `dagster-meltano` library as a required install item in the Dagster project `setup.py`. Then run the following:
+Then start the UI by running
 
 ```bash
-pip install -e ".[dev]"
 dagster dev
 ```
 
@@ -209,7 +217,7 @@ ops:
   tap_github_target_bigquery:
     config:
       env:
-        TAP_GITHUB_AUTH_TOKEN: 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
+        TAP_GITHUB_AUTH_TOKEN: #your-github-personal-access-tokens
 ```
 
 Then click 'Launch run'. We have just executed the `meltano run tap-github target-bigquery` command from within Dagster.
