@@ -230,6 +230,8 @@ First, activate the conda environment.
 
 ```bash
 conda activate dwh
+pip install dagster-dbt==0.26.19
+pip install dagster-webserver==1.10.19
 ```
 
 Create a file named `profiles.yml` in the `resale_flat` dbt project directory in Unit 2.6 with the following content:
@@ -245,7 +247,7 @@ resale_flat:
       location: US
       method: service-account
       priority: interactive
-      project: meltano-learn
+      project: #your-GCP-project-id
       threads: 1
       type: bigquery
   target: dev
