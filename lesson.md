@@ -4,13 +4,8 @@
 
 ### Preparation
 
-We will be using the `elt` and `dwh` environments for this lesson. We will also be using google cloud (for which the account was created in the previous units) in this lesson.
+We will be using the `elt` and `dagster` environments for this lesson. We will also be using google cloud (for which the account was created in the previous units) in this lesson.
 
-If you do not have the great expectations library, please do: 
-
-```
-pip install great_expectations
-```
 
 ### Lesson Overview
 
@@ -50,11 +45,7 @@ However, the built-in tests are limited in scope and functionality. We can expan
 
 ### Installing and Configuring `dbt_utils`
 
-First, activate the conda environment.
-
-```bash
-conda activate dwh
-```
+We will be using the same `elt` conda environment. The `liquor_sales` dbt project folder is under `extra` folder. Use the command `cd extra/liquor_sales` to navigate to the folder.
 
 Create a new `packages.yml` file:
 
@@ -127,17 +118,22 @@ Let's add some tests to check the column types in `fact_sales`:
 
 ## Extra - Hands-on with Orchestration I
 
+We will be using the `dagster` environment. Use the command `conda activate dagster` to activate the environment.
+
 This will be covered in class, with demo on `extra/dagster_orchestration_dbt`
 
 ```bash
 cd extra/dagster_orchestration_dbt
-dagster dev
 ```
 
-Note that to run the above successfully, you need to:
+Note that to run dagster successfully, you need to:
 1. Input your Github personal access token in `extra/dagster_orchestration_dbt/dagster_orchestration/assets/duck.py`
 2. In `extra/dagster_orchestration_dbt/profiles.yml`, enter your GCP project ID in `project:`
 
+After the configuration above, we can run dagster using the command below:
+```bash
+dagster dev
+```
 
 ## Extra - Hands-on with Orchestration II
 
@@ -151,31 +147,13 @@ We can orchestrate Meltano and Dbt pipelines using Dagster. By executing the com
 
 ### Create a Dagster Project
 
-As we are using BigQuery, the learner is reminded to do authentication using `gcloud auth application-default login` prior to starting this exercise.
+We will be using the meltano project we created in module 2.6. Make sure we are not in any subfolder.
 
-Due to issues of version conflict between dagster-meltano 1.5.5 with dagster >= 1.10, the learner is advised to create a new environment from scratch for this exercise.
-
-First, create a new conda environment and install the necessary packages.
-
-```bash
-conda create -n mo-env python=3.10 pip=25.1
-conda activate mo-env
-pip install dagster-meltano==1.5.5 # This installs dagster==1.9.13 automatically
-pip install dagster-webserver==1.9.13 # Version has to match dagster version installed in previous step
-pip install meltano==3.7.8
-```
-
-We will create a Dagster project and use it to orchestrate the Meltano pipelines.
+First, we will create a Dagster project and use it to orchestrate the Meltano pipelines.
 
 ```bash
 dagster project scaffold --name meltano-orchestration
 cd meltano-orchestration
-```
-
-Then start the UI by running
-
-```bash
-dagster dev
 ```
 
 ### Using the Dagster-Meltano library
@@ -202,9 +180,15 @@ defs = Definitions(
 )
 ```
 
+Then start the UI by running
+
+```bash
+dagster dev
+```
+
 ### Launching a Test Run of the Schedule
 
-Refresh the Dagster project, look for the 'Launchpad' tab after clicking on the job name in the left nav.
+Look for the 'Launchpad' tab after clicking on the job name in the left nav.
 
 When initiating a run in Dagster, we have to pass along configuration variables at run time such as the location of the Meltano project:
 
@@ -229,9 +213,7 @@ We can also orchestrate Dbt with Dagster.
 First, activate the conda environment.
 
 ```bash
-conda activate dwh
-pip install dagster-dbt==0.26.19
-pip install dagster-webserver==1.10.19
+conda activate elt
 ```
 
 Create a file named `profiles.yml` in the `resale_flat` dbt project directory in Unit 2.6 with the following content:
@@ -252,6 +234,8 @@ resale_flat:
       type: bigquery
   target: dev
 ```
+
+Please use the above format in order to be compatible with dagster. 
 
 Then create a new Dagster project that points to the directory.
 
