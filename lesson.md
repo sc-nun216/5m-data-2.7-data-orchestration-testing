@@ -39,7 +39,7 @@ Please see the notebook GX_lessons.ipynb
 
 ## Part 2 - Testing Dbt
 
-Back in unit 2.5, we configured some simple tests in dbt to check for _null values_, _uniqueness_ and _foreign key constraints_. We have copied the dbt project `liquor_sales` from unit 2.5 to this unit. You can find the tests in the `schema.yml` files in the `/models` directory.
+Back in unit 2.5, we configured some simple tests in dbt to check for _null values_, _uniqueness_ and _foreign key constraints_. We have copied the dbt project `liquor_sales` from unit 2.5 to this unit, located in the `extra` folder. You can find the tests in the `schema.yml` files in the `/models` directory.
 
 However, the built-in tests are limited in scope and functionality. We can expand on the tests using `dbt_utils`- a utility macros package for dbt and `dbt-expectations`- an extension package for dbt inspired by Great Expectations to write more comprehensive tests.
 
@@ -81,7 +81,7 @@ tests:
 
 Here, we use `ROUND` to round the values to 1 decimal place and compare them.
 
-Run the tests using `dbt test`. Observe which tests pass and which fail.
+Run the tests using `dbt test` (recall you will first need to run `dbt run` to create the tables). Observe which tests pass and which fail.
 
 > 1. Run a SQL query to check which rows failed.
 > 2. Run a SQL query to get the min and max values of `pack` and `bottle_volume_ml` in `liquor_sales_star.dim_item`.
@@ -120,7 +120,14 @@ Let's add some tests to check the column types in `fact_sales`:
 
 We will be using the `dagster` environment. Use the command `conda activate dagster` to activate the environment.
 
-This will be covered in class, with demo on `extra/dagster_orchestration_dbt`
+This will be covered in class, with demo on `extra/dagster_orchestration_dbt`.
+
+This `dagster_orchestration_dbt` project demonstrates the following:
+* A single Dagster project containing **three jobs**
+* One of the jobs runs a **DBT pipeline** that executes: 
+  * `dbt seed` 
+  * `dbt run`
+  * `dbt test`
 
 ```bash
 cd extra/dagster_orchestration_dbt

@@ -8,6 +8,6 @@ dbt_demo: # dbt_demo name. This is where dbt looks for from dbt_project.yml -> f
     jaffle_sql: # target 2
       type: bigquery
       method: oauth 
-      project: "germ-integration"
+      project: "<YOUR-GCP-PROJECT-ID>"
       dataset: "jaffle_demo"
       retries: 1
