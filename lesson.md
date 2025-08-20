@@ -220,7 +220,7 @@ We can also orchestrate Dbt with Dagster.
 First, activate the conda environment.
 
 ```bash
-conda activate elt
+conda activate dagster
 ```
 
 Create a file named `profiles.yml` in the `resale_flat` dbt project directory in Unit 2.6 with the following content:
