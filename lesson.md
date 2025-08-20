@@ -134,8 +134,11 @@ cd extra/dagster_orchestration_dbt
 ```
 
 Note that to run dagster successfully, you need to:
-1. Input your Github personal access token in `extra/dagster_orchestration_dbt/dagster_orchestration/assets/duck.py`
-2. In `extra/dagster_orchestration_dbt/profiles.yml`, enter your GCP project ID in `project:`
+1. Create a `.env` file under the folder `extra/dagster_orchestration_dbt`. Add your Github token in the `.env` file similar to below:
+    ```yaml
+    GITHUB_TOKEN='github_pat_xxx'
+    ```
+3. In `extra/dagster_orchestration_dbt/profiles.yml`, enter your GCP project ID in `project:`
 
 After the configuration above, we can run dagster using the command below:
 ```bash
