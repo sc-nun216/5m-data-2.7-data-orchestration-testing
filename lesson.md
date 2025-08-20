@@ -52,7 +52,7 @@ Create a new `packages.yml` file:
 ```yml
 packages:
   - package: dbt-labs/dbt_utils
-    version: 1.1.1
+    version: 1.3.0
 ```
 
 Run `dbt deps` to install the package. Refer to the [documentation](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/) for supported tests.
@@ -92,8 +92,8 @@ Run the tests using `dbt test` (recall you will first need to run `dbt run` to c
 Add the following to `packages.yml`:
 
 ```yml
-- package: calogica/dbt_expectations
-  version: 0.10.0
+- package: metaplane/dbt_expectations
+  version: 0.10.9
 ```
 
 Run `dbt deps` to install the package. Refer to the [documentation](https://hub.getdbt.com/calogica/dbt_expectations/latest/) for supported tests.
