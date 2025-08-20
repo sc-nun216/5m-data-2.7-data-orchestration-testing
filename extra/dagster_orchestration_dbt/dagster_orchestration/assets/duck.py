@@ -2,18 +2,21 @@
 import base64
 from io import BytesIO
 from typing import Dict
+import os
+import dotenv
 
 import matplotlib.pyplot as plt
 import pandas as pd
 import requests
 from dagster import AssetExecutionContext, MetadataValue, asset
 
+dotenv.load_dotenv()
 
 @asset
 def pandas_releases(
     context: AssetExecutionContext,
 ) -> pd.DataFrame:
-    access_token = "" # add your token
+    access_token = os.getenv("GITHUB_TOKEN")  # add your token
     response = requests.get(
         "https://api.github.com/repos/pandas-dev/pandas/releases?per_page=100",
         headers={
