@@ -17,13 +17,20 @@ Answer:
 Specs for `dbt_utils`:
 
 ```yml
-
+      - name: date
+        tests:
+        - dbt_utils.accepted_range:
+            min_value: "PARSE_DATE('%F', '2012-01-01')"
+            max_value: "CURRENT_DATE()"
 ```
 
 Specs for `dbt-expectations`:
 
 ```yml
-
+      - name: date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date
 ```
 
 ## Submission
